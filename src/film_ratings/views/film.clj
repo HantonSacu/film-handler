@@ -40,6 +40,20 @@
       [:div.col-2 "Rating:"]
       [:div.col-10 rating]])])
 
+(defn list-films-view
+  [films {:keys [messages]}]
+  (page
+   [:div.container.jumbotron.bg-light
+    [:div.row [:h2 "Films"]]
+    (for [{:keys [name description rating]} (doall films)]
+      [:div
+       (film-attributes-view name description rating)
+       [:hr]])
+    (when messages
+      (for [message (doall messages)]
+        [:div.row.alert.alert-success
+         [:div.col message]]))]))
+
 (defn film-view
   [{:keys [name description rating]} {:keys [errors messages]}]
   (page
